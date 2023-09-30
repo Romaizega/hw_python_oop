@@ -137,9 +137,8 @@ class Swimming(Training):
         return mean_speed_swm
 
     def get_spent_calories(self) -> float:
-        calor_swm = (
-                            (self.get_mean_speed() + self.RATIO_SWM_1)
-                     ) * self.RATIO_SWM_2 * self.weight * self.duration
+        calor_swm = (self.get_mean_speed() + self.RATIO_SWM_1) *\
+                    (self.RATIO_SWM_2 * self.weight * self.duration)
         return calor_swm
 
 
