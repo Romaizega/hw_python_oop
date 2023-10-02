@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Type
 
 
 @dataclass
@@ -46,8 +47,8 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError('Данный метод реализуется'
-                                  ' отделно для каждого дочернего класса')
+        raise NotImplementedError('Данный метод реализуется '
+                                  'отделно для каждого дочернего класса')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -82,7 +83,7 @@ class SportsWalking(Training):
     MULTIPLIER_1_OF_WEIGHT: float = 0.035
     MULTIPLIER_2_OF_WEIGHT: float = 0.029
     KMH_TO_MSEC: float = 0.278
-    M_TO_C: float = 100
+    M_TO_CM: float = 100
 
     def __init__(self,
                  action: int,
@@ -96,7 +97,7 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         speed_into_ms = self.get_mean_speed() * self.KMH_TO_MSEC
-        height_into_m = self.height / self.M_TO_C
+        height_into_m = self.height / self.M_TO_CM
         duration_into_min = self.duration * self.HOUR_TO_MIN
         return (self.MULTIPLIER_1_OF_WEIGHT * self.weight
                 + (speed_into_ms ** 2 / height_into_m)
@@ -135,7 +136,7 @@ class Swimming(Training):
         )
 
 
-TRAIN_TYPES: dict[str: Training] = {
+TRAIN_TYPES: dict[str, Type[Training]] = {
     'SWM': Swimming,
     'RUN': Running,
     'WLK': SportsWalking
@@ -146,7 +147,7 @@ def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
 
     if workout_type not in TRAIN_TYPES:
-        raise ValueError('Неизвестный тип тренировки')
+        raise ValueError(f'{workout_type}: неизвестный тип тренировки')
     return TRAIN_TYPES[workout_type](*data)
 
 
