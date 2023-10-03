@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Type
 
 
 @dataclass
@@ -136,7 +135,7 @@ class Swimming(Training):
         )
 
 
-TRAIN_TYPES: dict[str, Type[Training]] = {
+TRAIN_TYPES: dict[str, type[Training]] = {
     'SWM': Swimming,
     'RUN': Running,
     'WLK': SportsWalking
