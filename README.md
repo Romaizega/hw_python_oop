@@ -1,1 +1,1 @@
-# Модуль фитнес-трекера
+# Object-Oriented Programming
